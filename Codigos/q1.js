@@ -16,7 +16,7 @@ const params = {
 }
 
 let w1 = document.getElementById('WebGL-output1'), w2 = document.getElementById('WebGL-output2'), w3 = document.getElementById('WebGL-output3')
-let renderer1, renderer2, renderer3, scene1, scene2, scene3, axis = new THREE.AxesHelper()
+let renderer1, renderer2, renderer3, scene1, scene2, scene3
 let camera1 = new THREE.OrthographicCamera(-1.0, 1.0, 1.0, -1.0, -1.0, 1.0), camera2 = new THREE.OrthographicCamera(-1.0, 1.0, 1.0, -1.0, -1.0, 1.0), camera3 = new THREE.OrthographicCamera(-1.0, 1.0, 1.0, -1.0, -1.0, 1.0) 
 let linha1 = new THREE.Line(), linha2 = new THREE.Line(), linha3 = new THREE.Line()
 
@@ -34,7 +34,7 @@ function main() {
 
 	scene1.add(camera1)
 	
-    scene1.add(axis)
+    scene1.add(new THREE.AxesHelper())
 
 	let [vertices1, cores1] = criar(0.5)
 
@@ -64,7 +64,7 @@ function main() {
 
 	scene2.add(camera2)
 	
-    scene2.add(axis)
+    scene2.add(new THREE.AxesHelper())
 
 	let [vertices2, cores2] = criar(0.5, true)
 
@@ -101,7 +101,7 @@ function main() {
 
 	scene3.add(camera3)
 	
-    scene3.add(axis)
+    scene3.add(new THREE.AxesHelper())
 
 	let [vertices3, cores3] = criar(0.5, true, 3)
 
@@ -174,24 +174,17 @@ function animate() {
 	let [vertices1, cores1] = criar(params.pt1.raio)
 	linha1.geometry.setFromPoints(vertices1)
 	linha1.geometry.setAttribute('color', new THREE.Float32BufferAttribute(cores1, 3))
-	scene1.add(axis)
-	renderer1.clear()
 	renderer1.render(scene1, camera1)
 
 	let [vertices2, cores2] = criar(params.pt2.raio, true)
 	linha2.geometry.setFromPoints(vertices2)
 	linha2.geometry.setAttribute('color', new THREE.Float32BufferAttribute(cores2, 3))
-	scene2.add(axis)
-	renderer2.clear()
 	renderer2.render(scene2, camera2)	
 
 	let [vertices3, cores3] = criar(params.pt3.raio, true, params.pt3.voltas)
 	linha3.geometry.setFromPoints(vertices3)
 	linha3.geometry.setAttribute('color', new THREE.Float32BufferAttribute(cores3, 3))
-	scene3.add(axis)
-	renderer3.clear()
 	renderer3.render(scene3, camera3)
-
 }
 
 function criar(raio, espiral = false, voltas = 1) {
